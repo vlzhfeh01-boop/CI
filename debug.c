@@ -9,6 +9,7 @@ void disassembleChunk(Chunk* chunk, const char* name) {
         offset = disassembleInstruction(chunk,offset);
     }
 }
+// 이 오퍼랜드가 가리키는 실제 값이 뭔지까지 보여줘야 한다.
 static int constantInstruction(const char* name, Chunk* chunk, int offset) {
     uint8_t constant = chunk->code[offset+1];
     printf("%-16s %4d",name,constant);
@@ -36,6 +37,17 @@ int disassembleInstruction(Chunk* chunk, int offset) {
     {
     case OP_CONSTANT:
         return constantInstruction("OP_CONSTANT",chunk,offset);
+    case OP_ADD:
+        return simpleInstruction("OP_ADD", offset);
+        // 그
+    case OP_SUBTRACT:
+        return simpleInstruction("OP_SUBTRACT",offset);
+    case OP_MULTIPLY:
+        return simpleInstruction("OP_MULTIPLY",offset);
+    case OP_DIVIDE:
+        return simpleInstruction("OP_DIVIDE",offset);
+    case OP_NEGATE:
+        return simpleInstruction("OP_NEGATE", offset);
     case OP_RETURN:
         return simpleInstruction("OP_RETURN",offset);
     
